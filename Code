@@ -1,0 +1,94 @@
+#include <xc.h>
+#define _XTAL_FREQ 4000000
+#pragma config OSC = HS
+
+void init()
+{
+TRISD = 0x0;
+LATD = 0x0;
+OSCCON = 0x62;
+}
+
+int period = 200;
+
+void LED1()
+{
+   LATD = 0b00010000;
+   __delay_ms(period);
+   
+   LATD = 0b00110000;
+   __delay_ms(period);
+   
+   LATD = 0b01110000;
+   __delay_ms(period);
+   
+   LATD = 0b11110000;
+   __delay_ms(period);
+   
+   LATD = 0b00000000;
+   __delay_ms(period);
+}
+
+void LED2()
+{
+   
+   LATD = 0b00001000;
+   __delay_ms(period);
+   
+   LATD = 0b00001100;
+   __delay_ms(period);
+   
+   LATD = 0b00001110;
+   __delay_ms(period);
+   
+   LATD = 0b00001111;
+   __delay_ms(period);
+   
+   LATD = 0b00000000;
+   __delay_ms(period);
+}
+
+void LED4()
+{
+   LATD = 0b00011000;
+   __delay_ms(period);
+   
+   LATD = 0b00111100;
+   __delay_ms(period);
+   
+   LATD = 0b01111110;
+   __delay_ms(period);
+   
+   LATD = 0b11111111;
+   __delay_ms(period);
+   
+   LATD = 0b00000000;
+   __delay_ms(period);
+}
+
+
+void main()
+{
+init();
+
+   while(1)
+   {
+      
+      switch(PORTB)
+      {
+	 case 0b00001100:
+	 case 0b00001010:
+	 case 0b00001001:
+	 case 0b00001000:
+	    LED4();
+	    break;
+	 case 0b00000100:
+	    LED2();
+	    break;
+	 case 0b00000010:
+	    LED1(); 
+	    break;
+
+      }
+   }
+}
